@@ -1,0 +1,21 @@
+date,region,product,sales,quantity
+2024-01-01,North,Widget A,1200,24
+2024-01-01,South,Widget B,980,14
+2024-01-02,North,Widget B,1100,22
+2024-01-02,South,Widget A,850,17
+2024-01-03,East,Widget A,1500,30
+2024-01-03,West,Widget B,720,12
+2024-01-04,North,Widget A,1350,27
+2024-01-04,South,Widget B,920,18
+2024-01-05,East,Widget B,1050,21
+2024-01-05,West,Widget A,680,14
+2024-01-06,North,Widget B,1180,23
+2024-01-06,South,Widget A,790,16
+2024-01-07,East,Widget A,1420,28
+2024-01-07,West,Widget B,810,15
+2024-01-08,North,Widget A,1280,26
+2024-01-08,South,Widget B,950,19
+2024-01-09,East,Widget B,1120,22
+2024-01-09,West,Widget A,750,15
+2024-01-10,North,Widget B,1250,25
+2024-01-10,South,Widget A,880,18

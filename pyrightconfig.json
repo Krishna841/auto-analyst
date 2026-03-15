@@ -1,0 +1,8 @@
+{
+  "include": ["backend", "backend/**/*.py"],
+  "venvPath": ".",
+  "venv": ".venv",
+  "pythonVersion": "3.11",
+  "reportMissingImports": "warning",
+  "reportMissingModuleSource": false
+}
