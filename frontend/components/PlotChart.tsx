@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 
-const Plot = dynamic(() => import("react-plotly.js"), { ssr: false });
+const Plot = dynamic<any>(() => import("react-plotly.js"), { ssr: false });
 
 type GroupAnalysisData = Record<string, Record<string, number>>;
 

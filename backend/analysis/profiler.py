@@ -101,6 +101,22 @@ def get_missing_values(df: pd.DataFrame) -> dict[str, int]:
     return df.isna().sum().astype(int).to_dict()
 
 
+def get_unique_counts(df: pd.DataFrame) -> dict[str, int]:
+    """Return number of unique values per column (excluding NaNs for stability)."""
+    return df.nunique(dropna=True).astype(int).to_dict()
+
+
+def get_constant_columns(df: pd.DataFrame) -> list[str]:
+    """Columns with no variability (0 or 1 unique non-null values)."""
+    out: list[str] = []
+    for col in df.columns:
+        # dropna=True so all-NaN counts as constant (0 unique)
+        n_unique = df[col].nunique(dropna=True)
+        if n_unique <= 1:
+            out.append(col)
+    return out
+
+
 def profile_dataframe(df: pd.DataFrame) -> dict[str, Any]:
     """
     Full profile: rows, column types, numeric/categorical/datetime/identifier,
@@ -116,6 +132,8 @@ def profile_dataframe(df: pd.DataFrame) -> dict[str, Any]:
     identifier_columns = [c for c, t in col_types.items() if t == "identifier"]
 
     missing_values = get_missing_values(df)
+    unique_counts = get_unique_counts(df)
+    constant_columns = get_constant_columns(df)
     normalized_names = get_normalized_column_names(columns)
 
     return {
@@ -126,6 +144,11 @@ def profile_dataframe(df: pd.DataFrame) -> dict[str, Any]:
         "categorical_columns": categorical_columns,
         "datetime_columns": datetime_columns,
         "identifier_columns": identifier_columns,
+        # primary missing-values field used by the frontend
         "missing_values": missing_values,
+        # compatibility with the requirements doc
+        "missing": missing_values,
+        "unique_counts": unique_counts,
+        "constant_columns": constant_columns,
         "normalized_column_names": normalized_names,
     }

@@ -33,6 +33,163 @@ export async function getPlan(uploadId: string) {
   }
 }
 
+export async function getPipeline(uploadId: string) {
+  try {
+    const res = await fetch(`${API_BASE}/dataset/${uploadId}/pipeline`);
+    if (!res.ok) throw new Error(await res.text());
+    return res.json();
+  } catch (e) {
+    if (e instanceof Error && e.message !== "Failed to fetch") throw e;
+    handleFetchError(e, "Failed to load pipeline");
+  }
+}
+
+export async function getDatasets() {
+  try {
+    const res = await fetch(`${API_BASE}/datasets`);
+    if (!res.ok) throw new Error(await res.text());
+    return res.json();
+  } catch (e) {
+    if (e instanceof Error && e.message !== "Failed to fetch") throw e;
+    handleFetchError(e, "Failed to load datasets");
+  }
+}
+
+export async function getDatasetProfile(uploadId: string) {
+  try {
+    const res = await fetch(`${API_BASE}/dataset/${uploadId}/profile`);
+    if (!res.ok) throw new Error(await res.text());
+    return res.json();
+  } catch (e) {
+    if (e instanceof Error && e.message !== "Failed to fetch") throw e;
+    handleFetchError(e, "Failed to load dataset profile");
+  }
+}
+
+export async function getCharts(uploadId: string) {
+  try {
+    const res = await fetch(`${API_BASE}/dataset/${uploadId}/charts`);
+    if (!res.ok) throw new Error(await res.text());
+    return res.json();
+  } catch (e) {
+    if (e instanceof Error && e.message !== "Failed to fetch") throw e;
+    handleFetchError(e, "Failed to load charts");
+  }
+}
+
+export async function exportPipeline(uploadId: string) {
+  try {
+    const res = await fetch(`${API_BASE}/dataset/${uploadId}/pipeline/export?format=python`);
+    if (!res.ok) throw new Error(await res.text());
+    return res.json();
+  } catch (e) {
+    if (e instanceof Error && e.message !== "Failed to fetch") throw e;
+    handleFetchError(e, "Failed to export pipeline");
+  }
+}
+
+export async function columnAnalysis(uploadId: string, column: string) {
+  try {
+    const res = await fetch(`${API_BASE}/dataset/${uploadId}/column-analysis`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ column }),
+    });
+    if (!res.ok) throw new Error(await res.text());
+    return res.json();
+  } catch (e) {
+    if (e instanceof Error && e.message !== "Failed to fetch") throw e;
+    handleFetchError(e, "Failed to analyze column");
+  }
+}
+
+export async function rowAnalysis(uploadId: string, row_index: number) {
+  try {
+    const res = await fetch(`${API_BASE}/dataset/${uploadId}/row-analysis`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ row_index }),
+    });
+    if (!res.ok) throw new Error(await res.text());
+    return res.json();
+  } catch (e) {
+    if (e instanceof Error && e.message !== "Failed to fetch") throw e;
+    handleFetchError(e, "Failed to analyze row");
+  }
+}
+
+export async function filteredAnalysis(
+  uploadId: string,
+  column: string,
+  operator: string,
+  value: string
+) {
+  try {
+    const res = await fetch(`${API_BASE}/dataset/${uploadId}/filtered-analysis`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ filter: { column, operator, value } }),
+    });
+    if (!res.ok) throw new Error(await res.text());
+    return res.json();
+  } catch (e) {
+    if (e instanceof Error && e.message !== "Failed to fetch") throw e;
+    handleFetchError(e, "Failed to run filtered analysis");
+  }
+}
+
+export async function transformDataset(
+  uploadId: string,
+  action: string,
+  parameters: Record<string, unknown> = {}
+) {
+  try {
+    const res = await fetch(`${API_BASE}/dataset/${uploadId}/transform`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action, parameters }),
+    });
+    if (!res.ok) throw new Error(await res.text());
+    return res.json();
+  } catch (e) {
+    if (e instanceof Error && e.message !== "Failed to fetch") throw e;
+    handleFetchError(e, "Failed to apply transformation");
+  }
+}
+
+export async function undoTransform(uploadId: string) {
+  try {
+    const res = await fetch(`${API_BASE}/dataset/${uploadId}/undo`, { method: "POST" });
+    if (!res.ok) throw new Error(await res.text());
+    return res.json();
+  } catch (e) {
+    if (e instanceof Error && e.message !== "Failed to fetch") throw e;
+    handleFetchError(e, "Failed to undo transformation");
+  }
+}
+
+export async function redoTransform(uploadId: string) {
+  try {
+    const res = await fetch(`${API_BASE}/dataset/${uploadId}/redo`, { method: "POST" });
+    if (!res.ok) throw new Error(await res.text());
+    return res.json();
+  } catch (e) {
+    if (e instanceof Error && e.message !== "Failed to fetch") throw e;
+    handleFetchError(e, "Failed to redo transformation");
+  }
+}
+
+export async function resetTransform(uploadId: string) {
+  try {
+    const res = await fetch(`${API_BASE}/dataset/${uploadId}/reset`, { method: "POST" });
+    if (!res.ok) throw new Error(await res.text());
+    return res.json();
+  } catch (e) {
+    if (e instanceof Error && e.message !== "Failed to fetch") throw e;
+    handleFetchError(e, "Failed to reset pipeline");
+  }
+}
+
 export async function runAnalyze(uploadId: string) {
   try {
     const res = await fetch(`${API_BASE}/dataset/${uploadId}/analyze`, { method: "POST" });

@@ -27,6 +27,13 @@ export default function AnomaliesPage() {
     }
   }, []);
 
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const handler = () => setUploadId(localStorage.getItem("upload_id"));
+    window.addEventListener("datasetChanged", handler);
+    return () => window.removeEventListener("datasetChanged", handler);
+  }, []);
+
   async function loadAnomalies() {
     if (!uploadId) return;
     setLoading(true);

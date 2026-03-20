@@ -18,6 +18,13 @@ export default function InsightsPage() {
     }
   }, []);
 
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const handler = () => setUploadId(localStorage.getItem("upload_id"));
+    window.addEventListener("datasetChanged", handler);
+    return () => window.removeEventListener("datasetChanged", handler);
+  }, []);
+
   async function loadInsights() {
     if (!uploadId) return;
     setLoading(true);
@@ -84,7 +91,7 @@ export default function InsightsPage() {
           </div>
         );
       })()}
-      {analysis && (analysis as { results?: unknown }).results && (
+      {analysis && (analysis as { results?: any }).results != null && (
         <details style={{ marginTop: "1rem" }}>
           <summary>Statistical results (raw)</summary>
           <pre style={{ background: "#0f0f1a", padding: "1rem", overflow: "auto", fontSize: "0.85rem" }}>

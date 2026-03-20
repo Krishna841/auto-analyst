@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import DatasetSelect from "@/components/DatasetSelect";
 
 export const metadata: Metadata = {
   title: "Autonomous AI Data Analyst",
@@ -20,6 +21,9 @@ export default function RootLayout({
           <a href="/insights">Insights</a>
           <a href="/anomalies">Anomalies</a>
           <a href="/ask">Ask</a>
+          <div style={{ marginLeft: "auto" }}>
+            <DatasetSelect />
+          </div>
         </nav>
         <main style={mainStyle}>{children}</main>
       </body>
