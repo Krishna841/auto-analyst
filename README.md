@@ -15,6 +15,7 @@ This system automates the core steps of data analysis:
 - Natural language querying
 
 ## Demo Video
+[screen-capture (9).webm](https://github.com/user-attachments/assets/e8da53f1-b594-48e4-ac11-626532b1d7a1)
 
 ---
 
